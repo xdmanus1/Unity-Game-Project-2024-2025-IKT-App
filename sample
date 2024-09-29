@@ -1,0 +1,4 @@
+@echo off
+echo This is a sample batch file for the Unity Game Launcher
+pause > nul
+exit
