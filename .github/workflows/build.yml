@@ -1,35 +1,32 @@
 name: Build Executable
 
 on:
-  push:
-    branches:
-      - main  # Change this to your default branch if different
+  workflow_dispatch:  # This allows manual triggers only
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'  # Specify your Python version
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'  # Use your required Python version
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pyinstaller
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller  # Ensure you have PyInstaller installed
 
-      - name: Build executable
-        run: |
-          pyinstaller --onefile --windowed launcher.py
-          
-      - name: Upload executable
-        uses: actions/upload-artifact@v2
-        with:
-          name: launcher-executable
-          path: dist/launcher
+    - name: Build executable
+      run: |
+        pyinstaller --onefile your_script.py  # Replace with your main script name
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3  # Updated to use v3
+      with:
+        name: executable
+        path: dist/your_script.exe  # Adjust to match the name of your executable
