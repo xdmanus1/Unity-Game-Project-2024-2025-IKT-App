@@ -1,13 +1,5 @@
 
-# your_script.py
 
-__metadata__ = {
-    'name': 'Unity Game Installer',
-    'version': '0.5.0',  # Replace with your version number
-    'description': 'A brief description of your app.',
-    'author': 'Karsa Hunor Ékos',
-    'icon': 'app.ico',  # Path to your icon file
-}
 
 
 
