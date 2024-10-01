@@ -23,7 +23,11 @@ jobs:
 
     - name: Build executable
       run: |
-        pyinstaller --onefile your_script.py  # Replace with your main script name
+        pyinstaller --onefile \
+                     --name "Unity Game Installer" \  # Replace with your app name
+                     --version-file version.txt \  # Optional: specify version file
+                     --icon app.ico \  # Replace with your icon path
+                     main.py  # Replace with your main script name
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3  # Updated to use v3
