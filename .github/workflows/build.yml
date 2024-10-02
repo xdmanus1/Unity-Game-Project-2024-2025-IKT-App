@@ -1,32 +1,46 @@
-name: Build Executable
+name: Build Executable and Create Release
 
 on:
-  workflow_dispatch:  # Allows manual triggers only
+  workflow_dispatch:  # This allows manual triggers only
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'  # Specify Python version
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'  # Use your required Python version
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pyinstaller  # Ensure PyInstaller is installed
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller  # Ensure you have PyInstaller installed
 
-    - name: Build executable
-      run: |
-        pyinstaller --onefile --name "Unity Game Launcher" --version-file version_info.txt --icon app.ico main.py  # Updated command
+      - name: Build executable
+        run: |
+          pyinstaller --onefile --name "Unity Game Launcher" --version-file version_info.txt --icon app.ico main.py
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: Unity-Game-Launcher
-        path: dist/Unity Game Launcher.exe  # Adjust to the correct path
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: executable
+          path: dist/Unity\ Game\ Launcher.exe  # Adjust to match the name of your executable
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v0.2.1  # Adjust this as needed for your versioning
+          release_name: "Release v0.2.1"  # Name of the release
+          body: |
+            ### Changes in this Release
+            - Initial release of Unity Game Launcher.
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
