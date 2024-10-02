@@ -29,4 +29,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Unity-Game-Launcher
-        path: dist/Unity_Game_Launcher.exe  # Adjust to the correct path
+        path: dist/Unity Game Launcher.exe  # Adjust to the correct path
