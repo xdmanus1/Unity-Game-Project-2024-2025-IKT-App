@@ -30,6 +30,12 @@ jobs:
         with:
           name: executable
           path: dist/Unity Game Launcher.exe  # Adjust to match the name of your executable
+
+      - name: Configure Git user
+        run: |
+          git config --global user.email "craftercsapat590@gmail.com"
+          git config --global user.name "xdmanus1"
+
       - name: Create Tag
         run: |
           git tag -a v0.2.1 -m "Release v0.2.1"
@@ -42,7 +48,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v0.2.1  # Adjust this as needed for your versioning
-          name: "Release v0.2.1"  # Corrected to use 'name'
+          name: "Release v0.2.1"
           body: |
             ### Changes in this Release
             - Initial release of Unity Game Launcher.
