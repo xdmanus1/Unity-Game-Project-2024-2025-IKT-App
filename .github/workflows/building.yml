@@ -1,0 +1,83 @@
+name: Build Quantum Vendetta Launcher
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Create Virtual Environment
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install virtualenv
+        python -m virtualenv venv
+        
+    - name: Activate Virtual Environment and Install Dependencies
+      run: |
+        .\venv\Scripts\activate
+        pip install pyinstaller
+        pip install PyQt6
+        pip install pyrebase4
+        pip install requests
+        
+    - name: Build with PyInstaller
+      run: |
+        .\venv\Scripts\activate
+        pyinstaller --noconfirm --onefile --windowed ^
+          --add-data ".\venv\Lib\site-packages/PyQt6;PyQt6/" ^
+          --icon=app_icon.ico ^
+          --name "Quantum Vendetta Launcher" ^
+          --version-file version_info.txt ^
+          main.py
+          
+    - name: Create version_info.txt
+      run: |
+        @echo VSVersionInfo( > version_info.txt
+        @echo   ffi=FixedFileInfo( >> version_info.txt
+        @echo     filevers=(1, 0, 0, 0), >> version_info.txt
+        @echo     prodvers=(1, 0, 0, 0), >> version_info.txt
+        @echo     mask=0x3f, >> version_info.txt
+        @echo     flags=0x0, >> version_info.txt
+        @echo     OS=0x40004, >> version_info.txt
+        @echo     fileType=0x1, >> version_info.txt
+        @echo     subtype=0x0, >> version_info.txt
+        @echo     date=(0, 0) >> version_info.txt
+        @echo   ), >> version_info.txt
+        @echo   kids=[ >> version_info.txt
+        @echo     StringFileInfo( >> version_info.txt
+        @echo       [ >> version_info.txt
+        @echo         StringTable( >> version_info.txt
+        @echo           u'040904B0', >> version_info.txt
+        @echo           [StringStruct(u'Top T Inc.', u'Top T Inc.'), >> version_info.txt
+        @echo            StringStruct(u'FileDescription', u'Quantum Vendetta Game Launcher'), >> version_info.txt
+        @echo            StringStruct(u'FileVersion', u'0.9.0'), >> version_info.txt
+        @echo            StringStruct(u'InternalName', u'quantum_vendetta_launcher'), >> version_info.txt
+        @echo            StringStruct(u'LegalCopyright', u'Copyright (c) 2024'), >> version_info.txt
+        @echo            StringStruct(u'OriginalFilename', u'Quantum Vendetta Launcher.exe'), >> version_info.txt
+        @echo            StringStruct(u'ProductName', u'Quantum Vendetta Launcher'), >> version_info.txt
+        @echo            StringStruct(u'ProductVersion', u'0.9.0')] >> version_info.txt
+        @echo         ) >> version_info.txt
+        @echo       ] >> version_info.txt
+        @echo     ), >> version_info.txt
+        @echo     VarFileInfo([VarStruct(u'Translation', [1033, 1200])]) >> version_info.txt
+        @echo   ] >> version_info.txt
+        @echo ) >> version_info.txt
+        
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Quantum-Vendetta-Launcher
+        path: dist/Quantum Vendetta Launcher.exe
