@@ -34,14 +34,11 @@ jobs:
         pip install requests
         
     - name: Build with PyInstaller
-      run: |
-        .\venv\Scripts\activate
-        pyinstaller --noconfirm --onefile --windowed ^
-          --add-data ".\venv\Lib\site-packages/PyQt6;PyQt6/" ^
-          --icon=app_icon.ico ^
-          --name "Quantum Vendetta Launcher" ^
-          --version-file version_info.txt ^
-          main.py
+    shell: cmd
+    run: |
+      .\venv\Scripts\activate
+      pyinstaller --noconfirm --onefile --windowed --add-data ".\venv\Lib\site-packages/PyQt6;PyQt6/" --icon=app_icon.ico --name "Quantum Vendetta Launcher" --version-file version_info.txt main.py
+
           
     - name: Create version_info.txt
       run: |
