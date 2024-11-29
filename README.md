@@ -22,18 +22,13 @@ A sleek game launcher app built using **PyQt6** and **Firebase**! This launcher 
 ## 🛠️ Setup & Installation
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/game-launcher.git
+    git clone https://github.com/xdmanus1/Unity-Game-Project-2024-2025-IKT-App.git
     ```
 
-2. **Install dependencies**:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3. **Configure Firebase**: 
+2. **Configure Firebase**: 
    - Replace the Firebase configuration in the code with your own Firebase project details.
 
-4. **Run the application**:
+3. **Run the application**:
     ```bash
     python launcher.py
     ```
@@ -61,11 +56,6 @@ config = {
 - **Zipfile**
 - **Subprocess**
 
-## 📦 Dependencies
-Install the dependencies by running:
-```bash
-pip install -r requirements.txt
-```
 
 ## 🚨 Usage
 - **Download Latest Update**: Click the "Download Latest Update" button to start downloading the latest game version from Firebase.
