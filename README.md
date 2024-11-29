@@ -14,8 +14,6 @@ A sleek game launcher app built using **PyQt6** and **Firebase**! This launcher 
   - Once downloaded, easily launch your game from within the app.
 - 📊 **Progress Bar**: 
   - Shows detailed download progress, with an option to cancel mid-download.
-- 🛠️ **Dev Mode**: 
-  - Toggle dev mode for advanced testing and debugging features.
 - 🖱️ **Animated UI**: 
   - Sleek, interactive UI with hover animations on buttons for a polished look.
 
@@ -60,8 +58,6 @@ config = {
 ## 🚨 Usage
 - **Download Latest Update**: Click the "Download Latest Update" button to start downloading the latest game version from Firebase.
 - **Run Game**: Once the download completes, click "Run Game" to launch the game.
-- **Dev Mode**: Hidden feature for developers—enable it to access additional debugging options.
-
 ## 📝 License
 This project is licensed under the **MIT License**. Feel free to fork, contribute, or report any issues!
 
